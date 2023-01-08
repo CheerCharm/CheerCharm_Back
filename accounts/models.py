@@ -15,3 +15,6 @@ class User(TimestampZone):
     password = models.CharField(max_length=200)
     nickname = models.CharField(max_length=100)
     url_value = models.CharField(max_length=2000)
+
+    def __str__(self):
+        return f'{self.email}'
