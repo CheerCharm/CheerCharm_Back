@@ -6,12 +6,20 @@ from accounts.models import TimestampZone, User
 class Charm(TimestampZone):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='charms')
-    title = models.CharField(max_length=200)
-    content = models.TextField()
-    total_cheer = models.PositiveIntegerField()
-    cur_cheer = models.PositiveIntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    deleted_at = models.DateTimeField(null=True, blank=True, default=None)
+    title = models.CharField(max_length=50)
+    content = models.TextField(max_length=200)
+    total_cheer = models.PositiveIntegerField(null=True)
+    cur_cheer = models.PositiveIntegerField(verbose_name='응원수', null=True, blank=True)
     is_created = models.BooleanField(default=False)
-    image = models.URLField()
+    class Image(models.IntegerChoices):
+        mouse = 1
+        goat = 2
+        squirrel = 3
+        monkey = 4
+        bird = 5
+    image = models.IntegerField(choices=Image.choices, blank=True, null=True)
 
     def __str__(self):
         return f'{self.title}'
