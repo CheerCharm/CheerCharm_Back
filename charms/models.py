@@ -14,11 +14,12 @@ class Charm(TimestampZone):
     cur_cheer = models.PositiveIntegerField(verbose_name='응원수', null=True, blank=True)
     is_created = models.BooleanField(default=False)
     class Image(models.IntegerChoices):
-        mouse = 1
-        goat = 2
-        squirrel = 3
-        monkey = 4
-        bird = 5
+        monkey = 1
+        mouse = 2
+        rabbit = 3
+        squirrel = 4
+        goat = 5
+        bird = 6
     image = models.IntegerField(choices=Image.choices, blank=True, null=True)
 
     def __str__(self):
