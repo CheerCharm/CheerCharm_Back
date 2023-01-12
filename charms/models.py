@@ -1,6 +1,7 @@
 from django.db import models
 
 from accounts.models import TimestampZone, User
+from django.conf import settings 
 
 
 class Charm(TimestampZone):
