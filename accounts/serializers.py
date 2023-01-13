@@ -5,9 +5,10 @@ from django.contrib.auth.hashers import make_password, check_password
 from rest_framework_simplejwt.tokens import RefreshToken
 
 class UserSerializer(serializers.ModelSerializer):
+    charm = CharmSerializer(many=True, read_only=True)
     class Meta:
         model=User
-        fields=['id','username','password','nickname','created_at','updated_at','deleted_at','url_value']
+        fields=['id','username','password','nickname','created_at','updated_at','deleted_at','url_value','charm']
 
     def create(self, validate_data):
         hashed_password=make_password('password')
