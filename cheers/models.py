@@ -6,7 +6,7 @@ from charms.models import Charm
 
 class Cheer(TimestampZone):
     charm = models.ForeignKey(
-        Charm, on_delete=models.CASCADE, related_name='cheers')
+        Charm, on_delete=models.CASCADE, related_name='cheer')
     nickname = models.CharField(max_length=100)
     content = models.TextField()
 
