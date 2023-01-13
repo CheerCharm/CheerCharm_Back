@@ -6,7 +6,7 @@ from django.conf import settings
 
 class Charm(TimestampZone):
     user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='charms')
+        User, on_delete=models.CASCADE, related_name='charm')
     created_at = models.DateTimeField(auto_now_add=True)
     deleted_at = models.DateTimeField(null=True, blank=True, default=None)
     title = models.CharField(max_length=50)
