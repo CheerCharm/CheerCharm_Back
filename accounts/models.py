@@ -49,11 +49,11 @@ class User(AbstractUser, TimestampZone):
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=200)
     nickname = models.CharField(max_length=100)
-    url_value = models.CharField(max_length=2000)
+    url_value = models.CharField(max_length=2000, unique=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['password', 'nickname']
     objects = CustomUserManager()
 
     def __str__(self):
-        return f'{self.email}'
+        return self.username
