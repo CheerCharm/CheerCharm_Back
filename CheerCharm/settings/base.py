@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'accounts',
     'cheers',
     'charms',
+    'health_check',
 ]
 
 MIDDLEWARE = [
