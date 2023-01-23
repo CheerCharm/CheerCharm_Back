@@ -20,7 +20,7 @@ class Charm(TimestampZone):
     total_cheer = models.PositiveIntegerField(default=0)
     cur_cheer = models.PositiveIntegerField(default=0)
     is_created = models.BooleanField(default=False)
-    image = models.IntegerField(choices=CHARM_CHOICE)
+    image = models.CharField(choices=CHARM_CHOICE, max_length=50)
 
     def __str__(self):
         return f'{self.title}'
