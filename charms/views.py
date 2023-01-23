@@ -3,6 +3,7 @@ from .serializers import *
 from .models import *
 from rest_framework import views
 from rest_framework.response import Response
+from rest_framework.status import *
 
 # Create your views here.
 
@@ -11,18 +12,18 @@ class CharmListView(views.APIView):
     def get(self, request, format=None):
         charms = Charm.objects.all()
         serializer = CharmSerializer(charms, many=True)
-        return Response(serializer.data)
+        return Response({'message': '부적 목록 보기 성공', 'data': serializer.data}, status=HTTP_200_OK)
 
     def post(self, request, format=None):
         serializer = CharmSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors)
+            return Response({'message': '부적 생성 성공', 'data': serializer.data}, status=HTTP_200_OK)
+        return Response({'message': '부적 생성 실패', 'data': serializer.errors}, status=HTTP_400_BAD_REQUEST)
 
 
 class CharmDetailView(views.APIView):
     def get(self, request, pk, format=None):
         charm = get_object_or_404(Charm, pk=pk)
         serializer = CharmSerializer(charm)
-        return Response(serializer.data)
+        return Response({'message': '부적 상세 보기 성공', 'data': serializer.data}, status=HTTP_200_OK)
