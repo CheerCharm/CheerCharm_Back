@@ -4,6 +4,6 @@ from .views import *
 app_name = 'charms'
 
 urlpatterns = [
-    path('charms/', CharmListView.as_view()),
-    path('charms/<int:pk>', CharmDetailView.as_view()),
+    path('', CharmListView.as_view()),
+    path('<int:pk>/', CharmDetailView.as_view()),
 ]

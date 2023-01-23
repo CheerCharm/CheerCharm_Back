@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from .serializers import *
 from .models import *
@@ -6,6 +5,8 @@ from rest_framework import views
 from rest_framework.response import Response
 
 # Create your views here.
+
+
 class CharmListView(views.APIView):
     def get(self, request, format=None):
         charms = Charm.objects.all()
@@ -18,6 +19,7 @@ class CharmListView(views.APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors)
+
 
 class CharmDetailView(views.APIView):
     def get(self, request, pk, format=None):
