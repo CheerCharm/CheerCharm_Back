@@ -171,3 +171,6 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
+
+KAKAO_CLIENT_ID = env('KAKAO_CLIENT_ID')
+REDIRECT_URI = env('REDIRECT_URI')
