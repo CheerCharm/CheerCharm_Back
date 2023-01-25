@@ -29,6 +29,8 @@ class UserCreateSerializer(serializers.Serializer):
 class UserLoginSerializer(serializers.Serializer):
     username = serializers.CharField(required=True)
     password = serializers.CharField(required=True)
+    id = serializers.UUIDField(read_only=True)
+    nickname = serializers.CharField(read_only=True)
 
     def validate(self, data):
         username = data.get("username", None)

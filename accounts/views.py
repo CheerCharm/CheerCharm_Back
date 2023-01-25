@@ -26,6 +26,11 @@ class SignUpView(APIView):
 
 
 class LoginView(APIView):
+    def get(self, request):
+        user = get_object_or_404(User, id=request.user.id)
+        serializer = UserLoginSerializer(user)
+        return Response({'message': '현재 로그인된 유저 정보 조회 성공', 'data': serializer.data}, status=HTTP_200_OK)
+
     def post(self, request):
         serializer = UserLoginSerializer(data=request.data)
         if serializer.is_valid():
