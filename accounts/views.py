@@ -46,7 +46,7 @@ class KaKaoCallbackView(APIView):
         data = {
             "grant_type": "authorization_code",
             "client_id": KAKAO_CLIENT_ID,
-            "redirection_uri": REDIRECT_URI,
+            "redirect_uri": REDIRECT_URI,
             "code": request.GET["code"]
         }
 
@@ -64,15 +64,15 @@ class KaKaoCallbackView(APIView):
             user = User.objects.get(username=username)
         except:
             user = User(username=username, nickname=nickname,
-                        password="temp", url_value=uuid.uuid4().hex)
+                        password="temp", id=uuid.uuid4().hex)
             user.save()
             user = User.objects.get(username=username)
 
         token = RefreshToken.for_user(user)
         data = {
+            "id": user.id,
             "username": username,
             "nickname": nickname,
-            "url_value": user.url_value,
             "access_token": str(token.access_token),
             "refresh_token": str(token)
         }

@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 
+import uuid
+
 
 class TimestampZone(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
@@ -46,13 +48,13 @@ class CustomUserManager(BaseUserManager):
 
 
 class User(AbstractUser, TimestampZone):
+    id = models.UUIDField(primary_key=True, editable=False)
     username = models.CharField(max_length=200, unique=True)
     password = models.CharField(max_length=200)
     nickname = models.CharField(max_length=100)
-    url_value = models.UUIDField()
 
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['password', 'nickname', 'url_value']
+    REQUIRED_FIELDS = ['password', 'nickname', 'id']
     objects = CustomUserManager()
 
     def __str__(self):

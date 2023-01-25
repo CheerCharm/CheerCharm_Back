@@ -12,14 +12,14 @@ class UserCreateSerializer(serializers.Serializer):
     username = serializers.CharField(required=True)
     password = serializers.CharField(required=True)
     nickname = serializers.CharField(required=True)
-    url_value = serializers.UUIDField(read_only=True)
+    id = serializers.UUIDField(read_only=True)
 
     def create(self, validated_data):
         u = uuid.uuid4()
         user = User.objects.create(
             username=validated_data['username'],
             nickname=validated_data['nickname'],
-            url_value=u.hex
+            id=u.hex
         )
         user.set_password(validated_data['password'])
         user.save()
@@ -43,6 +43,7 @@ class UserLoginSerializer(serializers.Serializer):
                 data = {
                     'username': user.username,
                     'nickname': user.nickname,
+                    'id': user.id,
                     'access_token': access,
                     'refresh_token': refresh
                 }
