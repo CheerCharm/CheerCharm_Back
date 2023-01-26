@@ -5,6 +5,6 @@ app_name = 'charms'
 
 urlpatterns = [
     path('', CharmListView.as_view()),
-    path('<uuid:id>/creating/', CharmNotCreatedListView.as_view()),
-    path('<uuid:id>/<int:pk>/', CharmDetailView.as_view()),
+    path('creating/', CharmNotCreatedListView.as_view()),
+    path('<int:pk>/', CharmDetailView.as_view()),
 ]

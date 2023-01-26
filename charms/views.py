@@ -30,12 +30,12 @@ class CharmNotCreatedListView(views.APIView):
 
 
 class CharmDetailView(views.APIView):
-    def get(self, request, pk, id, format=None):
-        charm = get_object_or_404(Charm, pk=pk, user__id=id)
+    def get(self, request, pk, format=None):
+        charm = get_object_or_404(Charm, pk=pk)
         serializer = CharmSerializer(charm)
         return Response({'message': '부적 상세 보기 성공', 'data': serializer.data}, status=HTTP_200_OK)
 
-    def delete(self, request, pk, id):
-        charm = get_object_or_404(Charm, pk=pk, user=request.user)
+    def delete(self, request, pk):
+        charm = get_object_or_404(Charm, pk=pk)
         charm.delete()
         return Response({'message': '부적 삭제 성공'}, status=HTTP_200_OK)
