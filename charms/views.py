@@ -36,6 +36,6 @@ class CharmDetailView(views.APIView):
         return Response({'message': '부적 상세 보기 성공', 'data': serializer.data}, status=HTTP_200_OK)
 
     def delete(self, request, pk, id):
-        charm = get_object_or_404(Charm, pk=pk, user__id=id)
+        charm = get_object_or_404(Charm, pk=pk, user=request.user)
         charm.delete()
         return Response({'message': '부적 삭제 성공'}, status=HTTP_200_OK)
