@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from django.shortcuts import get_object_or_404
 from .serializers import *
 from .models import *
@@ -51,7 +51,7 @@ class KaKaoCallbackView(APIView):
         data = {
             "grant_type": "authorization_code",
             "client_id": KAKAO_CLIENT_ID,
-            "redirect_uri": REDIRECT_URI,
+            "redirect_uri": request.GET["redirect_uri"],
             "code": request.GET["code"]
         }
 
