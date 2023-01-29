@@ -16,14 +16,17 @@ class UserCreateSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         u = uuid.uuid4()
-        user = User.objects.create(
-            username=validated_data['username'],
-            nickname=validated_data['nickname'],
-            id=u.hex
-        )
-        user.set_password(validated_data['password'])
-        user.save()
-        return user
+        if User.objects.filter(username=validated_data['username']).exists():
+            raise serializers.ValidationError('이미 존재하는 username')
+        else:
+            user = User.objects.create(
+                username=validated_data['username'],
+                nickname=validated_data['nickname'],
+                id=u.hex
+            )
+            user.set_password(validated_data['password'])
+            user.save()
+            return user
 
 
 class UserLoginSerializer(serializers.Serializer):
