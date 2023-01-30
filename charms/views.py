@@ -29,6 +29,13 @@ class CharmNotCreatedListView(views.APIView):
         return Response({'message': '생성 중인 부적 목록 보기 성공', 'data': serializer.data}, status=HTTP_200_OK)
 
 
+class CharmCreatedListView(views.APIView):
+    def get(self, request):
+        charms = Charm.objects.filter(is_created=True)
+        serializer = CharmSerializer(charms, many=True)
+        return Response({'message': '생성 완료된 부적 목록 보기 성공', 'data': serializer.data}, status=HTTP_200_OK)
+
+
 class CharmDetailView(views.APIView):
     def get(self, request, pk, format=None):
         charm = get_object_or_404(Charm, pk=pk)
