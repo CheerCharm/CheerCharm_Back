@@ -8,7 +8,7 @@ from rest_framework_simplejwt.views import (
 app_name = 'accounts'
 
 urlpatterns = [
-    #path('kakao/login/', KaKaoView.as_view()),
+    path('kakao/test/', KaKaoView.as_view()),
     path('kakao/login/', KaKaoCallbackView.as_view()),
     path('signup/', SignUpView.as_view()),
     path('login/', LoginView.as_view()),
