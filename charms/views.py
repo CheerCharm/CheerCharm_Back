@@ -4,11 +4,14 @@ from .models import *
 from rest_framework import views
 from rest_framework.response import Response
 from rest_framework.status import *
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 
 # Create your views here.
 
 
 class CharmListView(views.APIView):
+    permission_classes = [IsAuthenticated]
+
     def get(self, request, format=None):
         charms = Charm.objects.filter(user=request.user)
         serializer = CharmSerializer(charms, many=True)
@@ -23,6 +26,8 @@ class CharmListView(views.APIView):
 
 
 class CharmNotCreatedListView(views.APIView):
+    permission_classes = [IsAuthenticated]
+
     def get(self, request):
         charms = Charm.objects.filter(is_created=False, user=request.user)
         serializer = CharmSerializer(charms, many=True)
@@ -30,6 +35,8 @@ class CharmNotCreatedListView(views.APIView):
 
 
 class CharmCreatedListView(views.APIView):
+    permission_classes = [IsAuthenticated]
+
     def get(self, request):
         charms = Charm.objects.filter(is_created=True, user=request.user)
         serializer = CharmSerializer(charms, many=True)
@@ -37,6 +44,8 @@ class CharmCreatedListView(views.APIView):
 
 
 class CharmDetailView(views.APIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
     def get(self, request, pk, format=None):
         charm = get_object_or_404(Charm, pk=pk)
         serializer = CharmSerializer(charm)

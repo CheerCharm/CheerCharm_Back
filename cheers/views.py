@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.status import *
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 
 from .serializers import *
 from charms.serializers import *
@@ -22,6 +23,7 @@ class CheerView(APIView):
         charm.save()
         data = {
             'charm': pk,
+            'charm_nick': charm.user.nickname,
             'nickname': request.data.get('nickname'),
             'content': request.data.get('content'),
             'cur_cheer': charm.cur_cheer,
@@ -35,6 +37,8 @@ class CheerView(APIView):
 
 
 class CheerDetailView(APIView):
+    permission_classes = [IsAuthenticated]
+
     def get(self, request, pk):
         cheer = get_object_or_404(Cheer, pk=pk)
         serializer = CheerSerializer(cheer)
