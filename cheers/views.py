@@ -17,6 +17,8 @@ class CheerView(APIView):
 
     def post(self, request, pk):
         charm = get_object_or_404(Charm, pk=pk)
+        if charm.is_created:
+            return Response({'message': '응원이 채워진 부적입니다'}, status=HTTP_400_BAD_REQUEST)
         charm.cur_cheer = charm.cur_cheer + 1
         if(charm.cur_cheer == charm.total_cheer):
             charm.is_created = True
