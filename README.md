@@ -78,4 +78,4 @@
 
 |                                             |                                         |                                    |
 | ------------------------------------------- | --------------------------------------- | ---------------------------------- |
-| [이나경]([https://github.com/rinarina0429]) | [조현영](https://github.com/yumiiiiiii) | [최유미](https://github.com/aqswa) |
+| [이나경](https://github.com/rinarina0429) | [조현영](https://github.com/yumiiiiiii) | [최유미](https://github.com/aqswa) |
