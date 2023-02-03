@@ -184,7 +184,7 @@ KAKAO_CLIENT_ID = env('KAKAO_CLIENT_ID')
 REDIRECT_URI = env('REDIRECT_URI')
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-AWS_S3_SECURE_URLS = True       # use http instead of https
+AWS_S3_SECURE_URLS = True
 AWS_QUERYSTRING_AUTH = False
 
 AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
