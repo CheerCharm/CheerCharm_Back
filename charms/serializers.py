@@ -18,3 +18,12 @@ class CharmSerializer(serializers.ModelSerializer):
 
     def get_nickname(self, obj):
         return obj.user.nickname
+
+
+class ImageSerializer(serializers.ModelSerializer):
+    img_front = serializers.URLField(required=False)
+    img_back = serializers.URLField(required=False)
+
+    class Meta:
+        model = CharmImage
+        fields = ['charm', 'img_front', 'img_back']

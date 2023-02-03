@@ -24,3 +24,13 @@ class Charm(TimestampZone):
 
     def __str__(self):
         return f'{self.title}'
+
+
+class CharmImage(TimestampZone):
+    charm = models.ForeignKey(
+        Charm, on_delete=models.CASCADE, related_name='charm_image')
+    img_front = models.URLField()
+    img_back = models.URLField()
+
+    def __str__(self):
+        return f'{self.charm.title}({self.charm.id})'

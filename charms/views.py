@@ -4,7 +4,13 @@ from .models import *
 from rest_framework import views
 from rest_framework.response import Response
 from rest_framework.status import *
+from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+
+from rest_framework.viewsets import ViewSet
+
+import boto3
+from CheerCharm.settings import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_STORAGE_BUCKET_NAME, AWS_STORAGE_REGION
 
 # Create your views here.
 
@@ -55,3 +61,50 @@ class CharmDetailView(views.APIView):
         charm = get_object_or_404(Charm, pk=pk)
         charm.delete()
         return Response({'message': '부적 삭제 성공'}, status=HTTP_200_OK)
+
+
+class S3ImgUploader:
+    def __init__(self, file, url):
+        self.file = file
+        self.url = url
+
+    def upload(self):
+        s3_client = boto3.client(
+            's3',
+            aws_access_key_id=AWS_ACCESS_KEY_ID,
+            aws_secret_access_key=AWS_SECRET_ACCESS_KEY
+        )
+
+        s3_client.upload_fileobj(
+            self.file,
+            AWS_STORAGE_BUCKET_NAME,
+            self.url,
+            ExtraArgs={
+                "ContentType": self.file.content_type
+            }
+        )
+        print(s3_client)
+        return f'https://{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_STORAGE_REGION}.amazonaws.com/{self.url}'
+
+
+class ImageUploadView(views.APIView):
+    def post(self, request, pk):
+        charm = get_object_or_404(Charm, pk=pk)
+        file_front = request.FILES.get('file_front')
+        file_back = request.FILES.get('file_back')
+
+        url = str(charm.user.username) + '/' + \
+            str(charm.user.id) + "-" + str(charm.id)
+        img_front = S3ImgUploader(file_front, url+"-f").upload()
+        img_back = S3ImgUploader(file_back, url+"-b").upload()
+
+        data = {
+            'charm': pk,
+            'img_front': img_front,
+            'img_back': img_back
+        }
+        serializer = ImageSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'message': '이미지 업로드 성공', 'data': serializer.data}, status=HTTP_200_OK)
+        return Response({'message': '이미지 업로드 실패', 'data': serializer.errors}, status=HTTP_400_BAD_REQUEST)
