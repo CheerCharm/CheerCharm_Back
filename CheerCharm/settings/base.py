@@ -55,7 +55,8 @@ INSTALLED_APPS = [
     'cheers',
     'charms',
     'health_check',
-    'corsheaders'
+    'corsheaders',
+    'rest_framework_simplejwt.token_blacklist',
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True

@@ -38,6 +38,14 @@ class LoginView(APIView):
         return Response({'message': "로그인 실패", 'data': serializer.errors}, status=HTTP_400_BAD_REQUEST)
 
 
+class LogoutView(APIView):
+    def post(self, request):
+        r_token = request.data["refresh_token"]
+        token = RefreshToken(r_token)
+        token.blacklist()
+        return Response({'message': "로그아웃 성공"}, status=HTTP_200_OK)
+
+
 class KaKaoView(APIView):
     def get(self, request):
         kakao_api = "http://kauth.kakao.com/oauth/authorize?response_type=code"
@@ -58,7 +66,7 @@ class KaKaoCallbackView(APIView):
         kakao_token_api = "https://kauth.kakao.com/oauth/token"
         access_token = requests.post(kakao_token_api, data=data).json()[
             "access_token"]
-        print(access_token)
+        # print(access_token)
         kakao_user_api = "https://kapi.kakao.com/v2/user/me"
         header = {"Authorization": f"Bearer ${access_token}"}
         user_information = requests.get(kakao_user_api, headers=header).json()
