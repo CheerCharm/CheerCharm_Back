@@ -88,13 +88,17 @@ class S3ImgUploader:
 
 
 class ImageUploadView(views.APIView):
+    def get(self, request, pk):
+        charm_image = get_object_or_404(CharmImage, charm__id=pk)
+        serializer = ImageSerializer(charm_image)
+        return Response({'message': '부적 이미지 링크 보기 성공', 'data': serializer.data}, status=HTTP_200_OK)
+
     def post(self, request, pk):
         charm = get_object_or_404(Charm, pk=pk)
         file_front = request.FILES.get('file_front')
         file_back = request.FILES.get('file_back')
 
-        url = str(charm.user.username) + '/' + \
-            str(charm.user.id) + "-" + str(charm.id)
+        url = str(charm.user.id) + "-" + str(charm.id)
         img_front = S3ImgUploader(file_front, url+"-f").upload()
         img_back = S3ImgUploader(file_back, url+"-b").upload()
 
