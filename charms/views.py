@@ -95,6 +95,9 @@ class ImageUploadView(views.APIView):
 
     def post(self, request, pk):
         charm = get_object_or_404(Charm, pk=pk)
+        filepath = request.FILES.get('file_front', False)
+        if not filepath:
+            return Response({'message': 'file_front가 존재하지 않습니다.'}, status=HTTP_400_BAD_REQUEST)
         file_front = request.FILES.get('file_front')
         file_back = request.FILES.get('file_back')
 
