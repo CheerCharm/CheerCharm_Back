@@ -76,6 +76,6 @@
  ┗ 📜requirements.txt
 
 ### 💚Contributors
-| [이나경](https://github.com/rinarina0429) | [조현영](https://github.com/yumiiiiiii) | [최유미](https://github.com/aqswa) |
+| 이나경 | 조현영 | 최유미 |
 | ---------- | ---------- | ---------- |
-|  |  |  |
+| [@rinarina0429](https://github.com/rinarina0429) | [@aqswa](https://github.com/aqswa) | [@yumiiiiiii](https://github.com/yumiiiiiii) |
