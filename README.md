@@ -1,7 +1,7 @@
 # 🍀응원이 부적해 BACKEND🍀
 🦁이화여대 멋쟁이사자처럼 10기 졸업 프로젝트 
 
-### 💚[배포 링크](https://cheer-charm.swygbro.com/)
+### 💚[배포 링크](https://cheer-charm.swygbro.com/) 
 
 ### 💚[프로젝트 소개](https://www.swygbro.com/contents/9f8a0d54-f110-4eb0-b3fc-262a8c3da2ed)
 링크를 공유해 친구들의 응원을 모아서 나만의 부적을 만들어 저장하는 서비스
